@@ -1,7 +1,9 @@
 package dev.incredas.spring.starter.web;
 
 import dev.incredas.spring.starter.core.CrudService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -35,8 +37,9 @@ public class CrudController<ID, REQUEST, QUERY, RESPONSE> {
     }
 
     @GetMapping
+    @PageableAsQueryParam
     @ResponseStatus(value = HttpStatus.OK)
-    private Page<RESPONSE> getAll(QUERY query, Pageable pageable) {
+    private Page<RESPONSE> getAll(QUERY query, @Parameter(hidden = true) Pageable pageable) {
         return crudService.getAll(query, pageable);
     }
 
