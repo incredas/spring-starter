@@ -1,12 +1,9 @@
 package dev.incredas.spring.starter.core;
 
-import dev.incredas.spring.starter.persistence.AuditableEntity;
-import dev.incredas.spring.starter.web.Request;
-import dev.incredas.spring.starter.web.Response;
 import dev.incredas.spring.starter.exception.EntityNotFoundException;
+import dev.incredas.spring.starter.persistence.AuditableEntity;
 import dev.incredas.spring.starter.persistence.EntityRepository;
 import dev.incredas.spring.starter.persistence.EntitySpecification;
-import dev.incredas.spring.starter.web.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @SuppressWarnings("squid:S119")
-public abstract class CrudServiceImpl<ID, REQUEST extends Request, QUERY extends Query, RESPONSE extends Response<ID>,
-        ENTITY extends AuditableEntity>
+public abstract class CrudServiceImpl<ID, REQUEST, QUERY, RESPONSE, ENTITY extends AuditableEntity>
         implements CrudService<ID, REQUEST, QUERY, RESPONSE> {
 
     @Autowired
