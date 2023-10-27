@@ -4,7 +4,6 @@ import dev.incredas.spring.starter.exception.EntityNotFoundException;
 import dev.incredas.spring.starter.persistence.AuditableEntity;
 import dev.incredas.spring.starter.persistence.EntityRepository;
 import dev.incredas.spring.starter.persistence.EntitySpecification;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,14 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class CrudServiceImpl<ID, REQUEST, QUERY, RESPONSE, ENTITY extends AuditableEntity>
         implements CrudService<ID, REQUEST, QUERY, RESPONSE> {
 
-    @Autowired
-    private EntityRepository<ENTITY, ID> repository;
+    private final EntityRepository<ENTITY, ID> repository;
 
-    @Autowired
-    private Mapper<REQUEST, ENTITY, RESPONSE> mapper;
+    private final Mapper<REQUEST, ENTITY, RESPONSE> mapper;
 
-    @Autowired
-    private EntitySpecification<ENTITY, QUERY> specification;
+    private final EntitySpecification<ENTITY, QUERY> specification;
+
+    protected CrudServiceImpl(EntityRepository<ENTITY, ID> repository,
+                              Mapper<REQUEST, ENTITY, RESPONSE> mapper,
+                              EntitySpecification<ENTITY, QUERY> specification) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.specification = specification;
+    }
 
     @Override
     @Transactional
