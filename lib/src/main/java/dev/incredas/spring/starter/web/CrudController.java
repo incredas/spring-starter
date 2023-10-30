@@ -3,20 +3,18 @@ package dev.incredas.spring.starter.web;
 import dev.incredas.spring.starter.core.CrudService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @SuppressWarnings("squid:S119")
 public class CrudController<ID, REQUEST, QUERY, RESPONSE> {
 
-    private CrudService<ID, REQUEST, QUERY, RESPONSE> crudService;
-
-    public CrudController(CrudService<ID, REQUEST, QUERY, RESPONSE> crudService) {
-        this.crudService = crudService;
-    }
+    private final CrudService<ID, REQUEST, QUERY, RESPONSE> crudService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)

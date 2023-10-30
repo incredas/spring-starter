@@ -2,32 +2,28 @@ package dev.incredas.spring.starter.core;
 
 import dev.incredas.spring.starter.exception.EntityNotFoundException;
 import dev.incredas.spring.starter.persistence.AuditableEntity;
-import dev.incredas.spring.starter.persistence.EntityRepository;
 import dev.incredas.spring.starter.persistence.EntitySpecification;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 @SuppressWarnings("squid:S119")
-public abstract class CrudServiceImpl<ID, REQUEST, QUERY, RESPONSE, ENTITY extends AuditableEntity>
+public abstract class CrudServiceImpl<ID, REQUEST, QUERY, RESPONSE, ENTITY extends AuditableEntity,
+        REPOSITORY extends CrudRepository<ENTITY, ID> & JpaSpecificationExecutor<ENTITY>>
         implements CrudService<ID, REQUEST, QUERY, RESPONSE> {
 
-    private final EntityRepository<ENTITY, ID> repository;
+    private final REPOSITORY repository;
 
     private final Mapper<REQUEST, ENTITY, RESPONSE> mapper;
 
     private final EntitySpecification<ENTITY, QUERY> specification;
-
-    protected CrudServiceImpl(EntityRepository<ENTITY, ID> repository,
-                              Mapper<REQUEST, ENTITY, RESPONSE> mapper,
-                              EntitySpecification<ENTITY, QUERY> specification) {
-        this.repository = repository;
-        this.mapper = mapper;
-        this.specification = specification;
-    }
 
     @Override
     @Transactional
@@ -62,6 +58,7 @@ public abstract class CrudServiceImpl<ID, REQUEST, QUERY, RESPONSE, ENTITY exten
     }
 
     @Override
+    @Transactional
     public void deleteOne(ID id) {
         repository.deleteById(id);
     }
