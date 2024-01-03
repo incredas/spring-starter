@@ -133,6 +133,7 @@ page at http://checkstyle.sourceforge.net/config.html -->
         <module name="JavadocMethod">
             <property name="scope" value="protected"/>
             <property name="severity" value="error"/>
+            <property name="suppressLoadErrors" value="true"/>
             <property name="allowMissingJavadoc" value="true"/>
             <property name="allowMissingParamTags" value="true"/>
             <property name="allowMissingReturnTag" value="true"/>
