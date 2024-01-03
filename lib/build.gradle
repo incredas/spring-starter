@@ -71,45 +71,45 @@ java {
 }
 
 publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            groupId = project.group
-//            artifactId = 'spring-starter'
-//            version = project.version
-//            from components.java
-//            versionMapping {
-//                usage('java-api') {
-//                    fromResolutionOf('runtimeClasspath')
-//                }
-//                usage('java-runtime') {
-//                    fromResolutionResult()
-//                }
-//            }
-//            pom {
-//                name = 'Spring Starter'
-//                description = 'Simple library to easily start with spring boot and quickly write CRUD operations'
-//                url = 'https://spring-starter.incredas.dev'
-//                licenses {
-//                    license {
-//                        name = 'The Apache License, Version 2.0'
-//                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    }
-//                }
-//                developers {
-//                    developer {
-//                        id = 'dorosh-in'
-//                        name = 'Vadym Doroshevych'
-//                        email = 'vd@incredas.dev'
-//                    }
-//                }
-//                scm {
-//                    connection = 'scm:git:git://github.com/incredas/spring-starter.git'
-//                    developerConnection = 'scm:git:git@github.com:incredas/spring-starter.git'
-//                    url = 'https://github.com/incredas/spring-starter'
-//                }
-//            }
-//        }
-//    }
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = 'spring-starter'
+            version = project.version
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'Spring Starter'
+                description = 'Simple library to easily start with spring boot and quickly write CRUD operations'
+                url = 'https://spring-starter.incredas.dev'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'dorosh-in'
+                        name = 'Vadym Doroshevych'
+                        email = 'vd@incredas.dev'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/incredas/spring-starter.git'
+                    developerConnection = 'scm:git:git@github.com:incredas/spring-starter.git'
+                    url = 'https://github.com/incredas/spring-starter'
+                }
+            }
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
