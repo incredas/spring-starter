@@ -1,33 +1,24 @@
 package dev.incredas.spring.starter.exception;
 
+import lombok.Getter;
+
+import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 public abstract class HttpServiceException extends RuntimeException {
 
     protected final int status;
 
     protected final String message;
 
-    protected final Set<String> errors;
+    protected final HashSet<String> errors;
 
     protected HttpServiceException(String message, int status, String... errors) {
         super(message);
         this.status = status;
         this.message = message;
-        this.errors = Set.of(errors);
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public Set<String> getErrors() {
-        return errors;
+        this.errors = new HashSet<>(Set.of(errors));
     }
 
 }
