@@ -1,33 +1,29 @@
 package dev.incredas.spring.starter.core;
 
-import dev.incredas.spring.starter.persistence.AuditableEntity;
-import dev.incredas.spring.starter.web.Request;
-import dev.incredas.spring.starter.web.Response;
 import dev.incredas.spring.starter.exception.EntityNotFoundException;
-import dev.incredas.spring.starter.persistence.EntityRepository;
+import dev.incredas.spring.starter.persistence.AuditableEntity;
 import dev.incredas.spring.starter.persistence.EntitySpecification;
-import dev.incredas.spring.starter.web.Query;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 @SuppressWarnings("squid:S119")
-public abstract class CrudServiceImpl<ID, REQUEST extends Request, QUERY extends Query, RESPONSE extends Response<ID>,
-        ENTITY extends AuditableEntity>
+public abstract class CrudServiceImpl<ID, REQUEST, QUERY, RESPONSE, ENTITY extends AuditableEntity,
+        REPOSITORY extends CrudRepository<ENTITY, ID> & JpaSpecificationExecutor<ENTITY>>
         implements CrudService<ID, REQUEST, QUERY, RESPONSE> {
 
-    @Autowired
-    private EntityRepository<ENTITY, ID> repository;
+    private final REPOSITORY repository;
 
-    @Autowired
-    private Mapper<REQUEST, ENTITY, RESPONSE> mapper;
+    private final Mapper<REQUEST, ENTITY, RESPONSE> mapper;
 
-    @Autowired
-    private EntitySpecification<ENTITY, QUERY> specification;
+    private final EntitySpecification<ENTITY, QUERY> specification;
 
     @Override
     @Transactional
@@ -62,6 +58,7 @@ public abstract class CrudServiceImpl<ID, REQUEST extends Request, QUERY extends
     }
 
     @Override
+    @Transactional
     public void deleteOne(ID id) {
         repository.deleteById(id);
     }

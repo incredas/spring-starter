@@ -1,18 +1,20 @@
 package dev.incredas.spring.starter.web;
 
 import dev.incredas.spring.starter.core.CrudService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @SuppressWarnings("squid:S119")
-public class CrudController<ID, REQUEST extends Request, QUERY extends Query, RESPONSE extends Response<ID>> {
+public class CrudController<ID, REQUEST, QUERY, RESPONSE> {
 
-    @Autowired
-    private CrudService<ID, REQUEST, QUERY, RESPONSE> crudService;
+    private final CrudService<ID, REQUEST, QUERY, RESPONSE> crudService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -33,8 +35,9 @@ public class CrudController<ID, REQUEST extends Request, QUERY extends Query, RE
     }
 
     @GetMapping
+    @PageableAsQueryParam
     @ResponseStatus(value = HttpStatus.OK)
-    private Page<RESPONSE> getAll(QUERY query, Pageable pageable) {
+    private Page<RESPONSE> getAll(QUERY query, @Parameter(hidden = true) Pageable pageable) {
         return crudService.getAll(query, pageable);
     }
 
