@@ -22,8 +22,8 @@ sonar {
     }
 }
 
-group = 'dev.incredas'
-version = '0.0.1-BETA'
+group = 'dev.incredas.spring'
+version = '0.0.1-TEST'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -74,7 +74,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = project.group
-            artifactId = 'spring-starter'
+            artifactId = 'starter'
             version = project.version
             from components.java
             versionMapping {
@@ -97,9 +97,8 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = 'dorosh-in'
                         name = 'Vadym Doroshevych'
-                        email = 'vd@incredas.dev'
+                        email = 'developer@incredas.dev'
                     }
                 }
                 scm {
@@ -133,7 +132,6 @@ javadoc {
 checkstyle {
     toolVersion '7.8.1'
     configFile file("checkstyle/config.xml")
-//    configFile file("checkstyle/google-checks.xml")
 }
 
 checkstyleMain {
