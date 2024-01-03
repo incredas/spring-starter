@@ -8,6 +8,7 @@
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
+    id 'checkstyle'
     id 'java-library'
     id 'maven-publish'
     id "org.sonarqube" version "4.4.1.3373"
@@ -111,10 +112,12 @@ publishing {
     }
     repositories {
         maven {
-            // change URLs to point to your repos, e.g. http://my.org/repo
-            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
-            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/incredas/spring-starter"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }
@@ -123,4 +126,20 @@ javadoc {
     if (JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
+}
+
+// Checkstyle
+
+checkstyle {
+    toolVersion '7.8.1'
+    configFile file("checkstyle/config.xml")
+//    configFile file("checkstyle/google-checks.xml")
+}
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+checkstyleTest {
+    source = 'src/test/java'
 }

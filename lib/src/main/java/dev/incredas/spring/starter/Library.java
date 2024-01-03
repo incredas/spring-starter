@@ -3,7 +3,11 @@
  */
 package dev.incredas.spring.starter;
 
+/**
+ * The Library class represents a library object that provides various library-related functionality.
+ */
 public class Library {
+
     public boolean someLibraryMethod() {
         return true;
     }
