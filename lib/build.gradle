@@ -23,7 +23,7 @@ sonar {
 }
 
 group = 'dev.incredas'
-version = '0.0.1-BETA'
+version = '0.0.1'
 
 repositories {
     // Use Maven Central for resolving dependencies.
