@@ -24,7 +24,7 @@ sonar {
 }
 
 group = 'dev.incredas.spring'
-version = '0.0.1-TEST'
+version = '0.0.1'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -99,6 +99,7 @@ publishing {
                 }
                 developers {
                     developer {
+                        id = 'vadym.doroshevych'
                         name = 'Vadym Doroshevych'
                         email = 'developer@incredas.dev'
                     }
@@ -117,17 +118,17 @@ publishing {
             url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             credentials {
                 username = project.properties["sonatype.username"]
-                password = project.properties["sonatype.password"]
+                password = project.properties["sonatype.username"]
             }
         }
-        maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/incredas/spring-starter"
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
+//        maven {
+//            name = "GitHubPackages"
+//            url = "https://maven.pkg.github.com/incredas/spring-starter"
+//            credentials {
+//                username = System.getenv("GITHUB_ACTOR")
+//                password = System.getenv("GITHUB_TOKEN")
+//            }
+//        }
     }
 }
 
